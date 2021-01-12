@@ -6,7 +6,7 @@
 //
 
 import Foundation
-class Entry {
+class Entry: Codable {
     
     let title: String
     let body: String
@@ -21,8 +21,13 @@ class Entry {
 
 extension Entry: Equatable {
     static func == (lhs: Entry, rhs: Entry) -> Bool {
-        return lhs.title == rhs.title && lhs.body == rhs.body
+        return lhs.timeStamp == rhs.timeStamp
     }
     
+
     
 }
+
+
+
+

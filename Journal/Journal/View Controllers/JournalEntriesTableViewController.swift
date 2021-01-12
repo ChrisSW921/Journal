@@ -11,16 +11,16 @@ class JournalEntriesTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        EntryController.shared.createEntryWith(title: "Test Title", body: "Test Body")
-        tableView.reloadData()
-
+        EntryController.shared.loadFromPersistentStorage()
     }
 
+    
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData()
+    }
+    
     // MARK: - Table view data source
-
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return EntryController.shared.entries.count
     }
 
@@ -29,11 +29,15 @@ class JournalEntriesTableViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "journalEntry", for: indexPath)
         cell.textLabel?.text = EntryController.shared.entries[indexPath.row].title
+        
+        //format the date
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM d, yyyy"
+        cell.detailTextLabel?.text = formatter.string(from: EntryController.shared.entries[indexPath.row].timeStamp)
 
         return cell
     }
     
-
     
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -45,15 +49,19 @@ class JournalEntriesTableViewController: UITableViewController {
         }
     }
     
-
-    /*
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        //Segue code
+        if segue.identifier == "seeEntry"{
+            if let indexPath = tableView.indexPathForSelectedRow {
+                if let detailViewController = segue.destination as? DetailViewController {
+                    let selectedEntry = EntryController.shared.entries[indexPath.row]
+                    detailViewController.entry = selectedEntry
+                }
+            }
+        }
     }
-    */
+    
 
 }
+

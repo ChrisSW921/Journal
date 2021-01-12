@@ -15,6 +15,7 @@
 		FF37BA7625AD0A1B00362D90 /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF37BA7525AD0A1B00362D90 /* Entry.swift */; };
 		FF37BA8125AD0BB600362D90 /* EntryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF37BA8025AD0BB600362D90 /* EntryController.swift */; };
 		FF37BA8625AD0E2000362D90 /* JournalEntriesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF37BA8525AD0E2000362D90 /* JournalEntriesTableViewController.swift */; };
+		FF37BA8F25AD153900362D90 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF37BA8E25AD153900362D90 /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		FF37BA7525AD0A1B00362D90 /* Entry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry.swift; sourceTree = "<group>"; };
 		FF37BA8025AD0BB600362D90 /* EntryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryController.swift; sourceTree = "<group>"; };
 		FF37BA8525AD0E2000362D90 /* JournalEntriesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntriesTableViewController.swift; sourceTree = "<group>"; };
+		FF37BA8E25AD153900362D90 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				FF37BA8525AD0E2000362D90 /* JournalEntriesTableViewController.swift */,
+				FF37BA8E25AD153900362D90 /* DetailViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -186,6 +189,7 @@
 				FF37BA7625AD0A1B00362D90 /* Entry.swift in Sources */,
 				7EDA120F259D233600BBD350 /* AppDelegate.swift in Sources */,
 				FF37BA8125AD0BB600362D90 /* EntryController.swift in Sources */,
+				FF37BA8F25AD153900362D90 /* DetailViewController.swift in Sources */,
 				FF37BA8625AD0E2000362D90 /* JournalEntriesTableViewController.swift in Sources */,
 				7EDA1211259D233600BBD350 /* SceneDelegate.swift in Sources */,
 			);
