@@ -19,4 +19,10 @@ class EntryController {
         JournalController.shared.removeEntryFrom(journal: journal, entry: journal.entries[index])
     }
     
+    static func update(title: String, body: String, entry: Entry) {
+        entry.title = title
+        entry.body = body
+        JournalController.shared.saveToPersistentStorage()
+    }
+    
 }

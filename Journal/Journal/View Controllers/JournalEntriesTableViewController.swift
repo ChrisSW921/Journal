@@ -13,7 +13,6 @@ class JournalEntriesTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        JournalController.shared.loadFromPersistentStorage()
     }
 
     
@@ -31,7 +30,8 @@ class JournalEntriesTableViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "journalEntry", for: indexPath)
         let currentJournal = journal ?? Journal(title: "Empty Journal")
-        cell.textLabel?.text = currentJournal.title
+        let currentJournalEntries = currentJournal.entries ?? []
+        cell.textLabel?.text = currentJournalEntries[indexPath.row].title
         
         //format the date
         let formatter = DateFormatter()

@@ -27,11 +27,17 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
     
     
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
-        guard let entryTitle = titleTextField.text, !entryTitle.isEmpty,
-              let bodyText = bodyTextView.text, !bodyText.isEmpty,
-              let selectedJournal = journal else {print("NO!")
-            return}
-        EntryController.createEntryWith(title: entryTitle, body: bodyText, journal: selectedJournal)
+        if let currentEntry = entry {
+            guard let entryTitle = titleTextField.text, !entryTitle.isEmpty,
+                  let bodyText = bodyTextView.text, !bodyText.isEmpty else {return}
+            EntryController.update(title: entryTitle, body: bodyText, entry: currentEntry)
+        }else{
+            guard let entryTitle = titleTextField.text, !entryTitle.isEmpty,
+                  let bodyText = bodyTextView.text, !bodyText.isEmpty,
+                  let selectedJournal = journal else {print("NO!")
+                return}
+            EntryController.createEntryWith(title: entryTitle, body: bodyText, journal: selectedJournal)
+        }
         navigationController?.popViewController(animated: true)
     }
     
@@ -47,17 +53,5 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         bodyTextView.text = sentEntry.body
 
     }
-    
-    
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
