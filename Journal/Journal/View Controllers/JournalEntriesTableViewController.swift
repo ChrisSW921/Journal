@@ -8,10 +8,12 @@
 import UIKit
 
 class JournalEntriesTableViewController: UITableViewController {
+    
+    var journal: Journal?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        EntryController.shared.loadFromPersistentStorage()
+        JournalController.shared.loadFromPersistentStorage()
     }
 
     
@@ -21,19 +23,20 @@ class JournalEntriesTableViewController: UITableViewController {
     
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return EntryController.shared.entries.count
+        return journal?.entries.count ?? 0
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "journalEntry", for: indexPath)
-        cell.textLabel?.text = EntryController.shared.entries[indexPath.row].title
+        let currentJournal = journal ?? Journal(title: "Empty Journal")
+        cell.textLabel?.text = currentJournal.title
         
         //format the date
         let formatter = DateFormatter()
         formatter.dateFormat = "MMM d, yyyy"
-        cell.detailTextLabel?.text = formatter.string(from: EntryController.shared.entries[indexPath.row].timeStamp)
+        cell.detailTextLabel?.text = formatter.string(from: currentJournal.entries[indexPath.row].timeStamp)
 
         return cell
     }
@@ -43,8 +46,8 @@ class JournalEntriesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-            let entryToDelete = EntryController.shared.entries[indexPath.row]
-            EntryController.shared.delete(entry: entryToDelete)
+            let entryToDelete = journal?.entries[indexPath.row] ?? Entry(title: "", body: "") //Makes me provide default
+            EntryController.delete(entry: entryToDelete, journal: journal!) //It makes me unwrap
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
@@ -55,9 +58,17 @@ class JournalEntriesTableViewController: UITableViewController {
         if segue.identifier == "seeEntry"{
             if let indexPath = tableView.indexPathForSelectedRow {
                 if let detailViewController = segue.destination as? DetailViewController {
-                    let selectedEntry = EntryController.shared.entries[indexPath.row]
+                    guard let selectedJournal = journal else {return}
+                    let selectedEntry = selectedJournal.entries[indexPath.row]
                     detailViewController.entry = selectedEntry
+                    detailViewController.journal = journal
+                    
                 }
+            }
+        }else{
+            if let detailViewController = segue.destination as? DetailViewController {
+                guard let selectedJournal = journal else {return}
+                detailViewController.journal = journal
             }
         }
     }
